@@ -1,0 +1,179 @@
+DELIMITER $
+
+CREATE TRIGGER trg1  
+
+AFTER INSERT ON rental_films
+
+FOR EACH ROW
+
+BEGIN 
+
+INSERT INTO history VALUES (null,'testuser',NOW(),'yes','insert','rental_films');
+
+END$
+
+
+CREATE TRIGGER trg2  
+
+AFTER UPDATE ON rental_films
+
+FOR EACH ROW
+
+BEGIN 
+
+INSERT INTO history VALUES (null,'testuser',NOW(),'yes','update','rental_films');
+
+END$
+
+
+
+CREATE TRIGGER trg3  
+
+AFTER DELETE ON rental_films
+
+FOR EACH ROW
+
+BEGIN 
+
+INSERT INTO history VALUES (null,'testuser',NOW(),'yes','delete','rental_films');
+
+END$
+
+
+
+
+
+
+CREATE TRIGGER trg4  
+
+AFTER INSERT ON rental_series
+
+FOR EACH ROW
+
+BEGIN 
+
+INSERT INTO history VALUES (null,'testuser',NOW(),'yes','insert','rental_series');
+
+END$
+
+
+CREATE TRIGGER trg5  
+
+AFTER UPDATE ON rental_series
+
+FOR EACH ROW
+
+BEGIN 
+
+INSERT INTO history VALUES (null,'testuser',NOW(),'yes','update','rental_series');
+
+END$
+
+
+
+CREATE TRIGGER trg6  
+
+AFTER DELETE ON rental_series
+
+FOR EACH ROW
+
+BEGIN 
+
+INSERT INTO history VALUES (null,'testuser',NOW(),'yes','delete','rental_series');
+
+END$
+
+
+
+
+CREATE TRIGGER trg7 
+
+AFTER INSERT ON payment_films
+
+FOR EACH ROW
+
+BEGIN 
+
+INSERT INTO history VALUES (null,'testuser',NOW(),'yes','insert','payment_films');
+
+END$
+
+
+CREATE TRIGGER trg8  
+
+AFTER UPDATE ON payment_films
+
+FOR EACH ROW
+
+BEGIN 
+
+INSERT INTO history VALUES (null,'testuser',NOW(),'yes','update','payment_films');
+
+END$
+
+
+
+CREATE TRIGGER trg9  
+
+AFTER DELETE ON payment_films
+
+FOR EACH ROW
+
+BEGIN 
+
+INSERT INTO history VALUES (null,'testuser',NOW(),'yes','delete','payment_films');
+
+END$
+
+
+
+
+CREATE TRIGGER trg10 
+
+AFTER INSERT ON payment_series
+
+FOR EACH ROW
+
+BEGIN 
+
+INSERT INTO history VALUES (null,'testuser',NOW(),'yes','insert','payment_series');
+
+END$
+
+
+CREATE TRIGGER trg11  
+
+AFTER UPDATE ON payment_series
+
+FOR EACH ROW
+
+BEGIN 
+
+INSERT INTO history VALUES (null,'testuser',NOW(),'yes','update','payment_series');
+
+END$
+
+
+
+CREATE TRIGGER trg12  
+
+AFTER DELETE ON payment_series
+
+FOR EACH ROW
+
+BEGIN 
+
+INSERT INTO history VALUES (null,'testuser',NOW(),'yes','delete','payment_series');
+
+END$
+
+
+
+
+
+
+
+
+
+
+

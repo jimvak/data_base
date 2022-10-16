@@ -1,0 +1,21 @@
+DELIMITER $
+
+
+CREATE TRIGGER trigger43
+
+BEFORE UPDATE ON customer
+
+FOR EACH ROW
+
+BEGIN 
+
+IF (new.email <> old.email)
+
+THEN 
+
+SIGNAL SQLSTATE VALUE '45000' SET MESSAGE_TEXT = 'Not permited to change email';
+
+END IF;
+
+
+END$

@@ -1,0 +1,49 @@
+DELIMITER $
+CREATE PROCEDURE procedure1(IN choice CHAR(1), IN p INT, IN start_date DATE, IN end_DATE DATE)
+
+BEGIN 
+
+IF (choice ='m')
+
+THEN
+
+SELECT film.film_id, film.title, COUNT(rental_films.rental_id)
+
+FROM film INNER JOIN inventory_films ON film.film_id = inventory_films.film_id
+
+INNER JOIN rental_films ON inventory_films.inventory_id = rental_films.inventory_id
+
+WHERE  rental_films.rental_date>=start_date AND rental_films.rental_date <=end_date
+
+GROUP BY film.film_id
+
+ORDER BY COUNT(rental_films.rental_id) DESC
+
+LIMIT 0,p;
+
+
+ELSEIF (choice='s')
+
+THEN
+
+SELECT serie.serie_id, serie.title, COUNT(rental_series.rental_id)
+
+FROM serie INNER JOIN inventory_series ON serie.serie_id = inventory_series.serie_id
+
+INNER JOIN rental_series ON inventory_series.inventory_id = rental_series.inventory_id
+
+WHERE  rental_series.rental_date>=start_date AND rental_series.rental_date <=end_date
+
+GROUP BY serie.serie_id
+
+ORDER BY COUNT(rental_series.rental_id) DESC
+
+LIMIT 0,p;
+
+ELSE
+
+SELECT 'Wrong Choice';
+
+END IF;
+
+END$

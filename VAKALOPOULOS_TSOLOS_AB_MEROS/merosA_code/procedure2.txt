@@ -1,0 +1,43 @@
+DELIMITER $
+
+CREATE PROCEDURE procedure2(IN customer_email VARCHAR(50), IN mydate DATE)
+
+
+BEGIN 
+
+DECLARE pmovies INT;
+
+DECLARE pseries INT;
+
+
+SELECT COUNT(*) INTO pmovies FROM customer INNER JOIN customer_films ON customer.customer_id = customer_films.customer_id WHERE customer.email=customer_email;
+
+
+SELECT COUNT(*) into pseries FROM customer INNER JOIN customer_series ON customer.customer_id = customer_series.customer_id WHERE customer.email = customer_email;
+
+
+IF (pmovies = 1)
+
+THEN 
+
+SELECT COUNT(rental_films.rental_id) AS plithos_tainiwn_pou_enoikiastikan
+
+FROM rental_films INNER JOIN customer ON rental_films.customer_id = customer.customer_id
+
+WHERE customer.email = customer_email AND CAST(rental_films.rental_date AS DATE) = mydate;
+
+END IF;
+
+IF (pseries = 1)
+
+THEN 
+
+SELECT COUNT(rental_series.rental_id) AS plitahos_epeisodiwn_pou_enoikiastikan
+
+FROM rental_series INNER JOIN customer ON rental_series.customer_id = customer.customer_id
+
+WHERE customer.email = customer_email AND CAST(rental_series.rental_date AS DATE) = mydate;
+
+END IF;
+
+END$

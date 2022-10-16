@@ -1,0 +1,15 @@
+DELIMITER $
+
+
+CREATE PROCEDURE procedure4a(IN start_last VARCHAR(20), IN end_last VARCHAR(20))
+
+BEGIN 
+
+SELECT first_name, last_name FROM actor WHERE last_name >=start_last AND last_name <=end_last;
+
+
+SELECT COUNT(*) as total_actors FROM actor WHERE last_name >=start_last AND last_name <=end_last;
+
+
+
+END$

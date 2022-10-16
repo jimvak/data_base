@@ -1,0 +1,29 @@
+DELIMITER $
+
+
+CREATE PROCEDURE procedure3()
+
+BEGIN
+
+SELECT 'Movies';
+
+
+SELECT MONTH(payment_date), SUM(amount)
+
+FROM payment_films
+
+GROUP BY MONTH(payment_date);
+
+
+
+SELECT 'Series';
+
+
+SELECT MONTH(payment_date), SUM(amount)
+
+FROM payment_series
+
+GROUP BY MONTH(payment_date);
+
+
+END$

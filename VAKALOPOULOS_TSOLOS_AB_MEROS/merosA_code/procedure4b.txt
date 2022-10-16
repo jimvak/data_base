@@ -1,0 +1,26 @@
+DELIMITER $
+
+
+CREATE PROCEDURE procedure4b(IN ln VARCHAR(20))
+
+BEGIN 
+
+
+DECLARE p INT;
+
+SELECT first_name, last_name FROM actor WHERE last_name = ln;
+
+
+SELECT COUNT(*) INTO p FROM actor WHERE last_name = ln;
+
+
+IF (p > 0)
+
+THEN
+
+SELECT p as total_actors;
+
+
+END IF;
+
+END$

@@ -1,0 +1,130 @@
+DELIMITER $
+
+
+CREATE TRIGGER trigger42a 
+
+BEFORE INSERT ON payment_films
+
+FOR EACH ROW
+
+BEGIN 
+
+DECLARE pmovies INT;
+
+DECLARE pseries INT;
+
+DECLARE cmovies INT;
+
+DECLARE cseries INT;
+
+DECLARE total_rented INT;
+
+
+SELECT COUNT(*) INTO pmovies FROM customer INNER JOIN customer_films ON customer.customer_id = customer_films.customer_id WHERE customer.customer_id=NEW.customer_id;
+
+
+SELECT COUNT(*) into pseries FROM customer INNER JOIN customer_series ON customer.customer_id = customer_series.customer_id WHERE customer.customer_id = NEW.customer_id;
+
+
+IF (pmovies = 1)
+
+THEN 
+
+SELECT COUNT(rental_films.rental_id) INTO cmovies
+
+FROM rental_films INNER JOIN customer ON rental_films.customer_id = customer.customer_id
+
+WHERE customer.customer_id = NEW.customer_id AND CAST(rental_films.rental_date AS DATE) = NOW();
+
+END IF;
+
+IF (pseries = 1)
+
+THEN 
+
+SELECT COUNT(rental_series.rental_id) INTO cseries
+
+FROM rental_series INNER JOIN customer ON rental_series.customer_id = customer.customer_id
+
+WHERE customer.customer_id = NEW.customer_id AND CAST(rental_series.rental_date AS DATE) = NOW();
+
+END IF;
+
+SET total_rented = cmovies+cseries;
+
+IF ( MOD(total_rented,3)=0)
+
+THEN 
+
+SET NEW.amount = NEW.amount/2;
+
+
+END IF;
+
+
+END$
+
+
+
+CREATE TRIGGER trigger42b 
+
+BEFORE INSERT ON payment_series
+
+FOR EACH ROW
+
+BEGIN 
+
+DECLARE pmovies INT;
+
+DECLARE pseries INT;
+
+DECLARE cmovies INT;
+
+DECLARE cseries INT;
+
+DECLARE total_rented INT;
+
+
+SELECT COUNT(*) INTO pmovies FROM customer INNER JOIN customer_films ON customer.customer_id = customer_films.customer_id WHERE customer.customer_id=NEW.customer_id;
+
+
+SELECT COUNT(*) into pseries FROM customer INNER JOIN customer_series ON customer.customer_id = customer_series.customer_id WHERE customer.customer_id = NEW.customer_id;
+
+
+IF (pmovies = 1)
+
+THEN 
+
+SELECT COUNT(rental_films.rental_id) INTO cmovies
+
+FROM rental_films INNER JOIN customer ON rental_films.customer_id = customer.customer_id
+
+WHERE customer.customer_id = NEW.customer_id AND CAST(rental_films.rental_date AS DATE) = NOW();
+
+END IF;
+
+IF (pseries = 1)
+
+THEN 
+
+SELECT COUNT(rental_series.rental_id) INTO cseries
+
+FROM rental_series INNER JOIN customer ON rental_series.customer_id = customer.customer_id
+
+WHERE customer.customer_id = NEW.customer_id AND CAST(rental_series.rental_date AS DATE) = NOW();
+
+END IF;
+
+SET total_rented = cmovies+cseries;
+
+IF ( MOD(total_rented,3)=0)
+
+THEN 
+
+SET NEW.amount = NEW.amount/2;
+
+
+END IF;
+
+
+END$
